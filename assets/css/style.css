@@ -1,0 +1,13 @@
+body {
+    background: green;
+    text-align: center;
+    border: 5px solid black;
+}
+
+header {
+    font-size: 75px;
+}
+
+.correctanswer {
+    border: 3px solid greenyellow;
+}

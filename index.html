@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Seattle Trivia Game</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="assets/javascript/game.js" ></script>
+    <link href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+</head>
+<body>
+
+    <header> Seattle Trivia!</header>
+
+    <div id="welcomeWindow">
+        <h2>How much do you know about Seattle?</h2>
+
+        <p>Take on the challenge and test your knowledge about Seattle; there are 10 questions total.</p>
+        <p>Can you answer the questions within 30 seconds?</p>
+
+        <div>
+            <button id="start">Start</button>
+        </div>
+    </div>
+
+    
+
+    <div id="timesUpTimer">
+        <h1>You're Done!</h1>
+    </div>
+
+    <div id="questionHolder">
+        <p id="question">Question goes here</p>
+        <button class="answerButton">Answer</button>
+        <button class="answerButton">Answer</button>
+        <button class="answerButton">Answer</button>
+        <button class="answerButton">Answer</button>
+
+        <div class="container" id="startingText">
+            <p>You Have <span id="timeLeft">X</span> Seconds Left</p>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
