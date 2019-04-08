@@ -13,13 +13,13 @@
 </head>
 <body>
 
-    <header> Seattle Trivia!</header>
+    <header>Seattle Trivia!</header>
 
     <div id="welcomeWindow">
         <h2>How much do you know about Seattle?</h2>
 
-        <p>Take on the challenge and test your knowledge about Seattle; there are 10 questions total.</p>
-        <p>Can you answer the questions within 30 seconds?</p>
+        <p>Take on the challenge and test your knowledge about Seattle; there are 5 questions total.</p>
+        <p>Can you answer each question within 30 seconds?</p>
 
         <div>
             <button id="start">Start</button>
@@ -29,16 +29,21 @@
     
 
     <div id="timesUpTimer">
-        <h1>You're Done!</h1>
+        <h1>Sorry, your time is up!</h1>
+    </div>
+
+    <div id="correctAnswerChoosen">
+        <h1>You're right, congrats for choosing the right answer!</h1>
     </div>
 
     <div id="questionHolder">
         <p id="question">Question goes here</p>
-        <button class="answerButton">Answer</button>
-        <button class="answerButton">Answer</button>
-        <button class="answerButton">Answer</button>
-        <button class="answerButton">Answer</button>
-
+        <ul>
+            <li><button class="answerButton">Answer</button></li>
+            <li><button class="answerButton">Answer</button></li>
+            <li><button class="answerButton">Answer</button></li>
+            <li><button class="answerButton">Answer</button></li>
+        </ul>
         <div class="container" id="startingText">
             <p>You Have <span id="timeLeft">X</span> Seconds Left</p>
         </div>

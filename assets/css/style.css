@@ -11,3 +11,7 @@ header {
 .correctanswer {
     border: 3px solid greenyellow;
 }
+
+li {
+    display: block;
+}
