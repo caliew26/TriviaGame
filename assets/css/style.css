@@ -1,11 +1,31 @@
+* {
+    font-size: 16px;
+}
 body {
-    background: green;
+    background: whitesmoke;
     text-align: center;
     border: 5px solid black;
 }
 
+.backgroundContainer {
+    opacity: 1;
+    margin: 30px;
+    border: 2px solid black;
+    position: relative;
+}
+
+
 header {
     font-size: 75px;
+    position: absolute;
+    /* top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+}
+
+img {
+    width: 100%;
+    opacity: 0.2;
 }
 
 .correctanswer {
@@ -14,4 +34,19 @@ header {
 
 li {
     display: block;
+    padding: 10px;
+    margin: 10px;
+}
+
+#questionHolder {
+    margin: 20px;
+    font-size: 18px;
+}
+
+#wrongAnswerChosen {
+    color: red;
+}
+
+.wronganswer {
+    border: 3px solid red;
 }

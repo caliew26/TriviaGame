@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Seattle Trivia Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script src="assets/javascript/game.js" ></script>
     <link href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     
 </head>
-<body>
+<body class="backgroundContainer">
 
-    <header>Seattle Trivia!</header>
+    <header class="col col-lg-12">Seattle Trivia!</header>
+        <img src="assets/images/mt-rainer.jpg">
 
-    <div id="welcomeWindow">
+    <div id="welcomeWindow" class="col col-lg-12">
         <h2>How much do you know about Seattle?</h2>
 
         <p>Take on the challenge and test your knowledge about Seattle; there are 5 questions total.</p>
@@ -28,15 +30,19 @@
 
     
 
-    <div id="timesUpTimer">
+    <div id="timesUpTimer" class="col col-lg-12">
         <h1>Sorry, your time is up!</h1>
     </div>
 
-    <div id="correctAnswerChoosen">
+    <div id="correctAnswerChosen" class="col col-lg-12">
         <h1>You're right, congrats for choosing the right answer!</h1>
     </div>
+    
+    <div id="wrongAnswerChosen" class="col col-lg-12">
+            <h1>You're wrong!</h1>
+        </div>
 
-    <div id="questionHolder">
+    <div id="questionHolder" class="col col-lg-12">
         <p id="question">Question goes here</p>
         <ul>
             <li><button class="answerButton">Answer</button></li>
