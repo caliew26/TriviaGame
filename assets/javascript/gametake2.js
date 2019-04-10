@@ -11,6 +11,10 @@ var wins = 0
 var losses = 0
 var timerCountdown = 5;
 var countdownRunner;
+var resetTimer; 
+var resetHold= 5;
+var wait;
+
 
 //most common way to get to work in Seattle is biking
 const questionOne = [
@@ -92,6 +96,7 @@ function initializeEventHandlers(){
         $("#welcomeWindow").hide();
         $("#questionHolder").show(); //questionHolder is my template
         countdownRunner = setInterval(countdown, ONE_SECOND);
+        resetHold = setInterval(resetTimer, ONE_SECOND);
     });
 
     $(".answerButton").click(function(){
@@ -104,13 +109,15 @@ function initializeEventHandlers(){
         
         if (index === currentQuestion[2]){
             $("#correctAnswerChosen").fadeIn();
+            resetTimer();
         }
         else {
             $("#wrongAnswerChosen").fadeIn();
             $(this).addClass("wronganswer");
             $("#startingText").hide();
+            resetTimer();
         }
-        
+        wait(5000);
         advanceToNextQuestion();
         
     });
@@ -146,7 +153,20 @@ function countdown() {
     }
 }
 
+function resetTimer() {
+    console.log(resetHold);
+    updateTimeRemaining(resetHold);
 
+    if(resetHold === 0){
+        clearInterval(resetHold);
+        $("#startingText").hide();
+        $("#timesUpTimer").show();
+        $(".answerButton").attr("disabled", true);
+        displayCorrectAnswer(currentQuestion);
+    } else {
+        timerCountdown--
+    }
+}
 //if wrong - show banner saying "wrong", show right answer, 
 //correct answer, banner saying "right", button will be made different so user knows the correct answer
 function displayCorrectAnswer(questionArray){
@@ -164,6 +184,17 @@ function loadQuestion(questionArray){
         answerButtons[i].innerText = answers[i];
     }
 }
+
+// function resetTimerHold(){
+//     console.log(resetHold);
+//     updateTimeRemaining(resetHold);
+
+//     if(resetHold === 0){
+//         clearInterval(resetHold);
+//     } else {
+//         resetTimerHold--
+//     }
+// }
 
 
     //pseudo code that hasn't been used - or has been repeated above, saving til end
