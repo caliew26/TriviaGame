@@ -9,9 +9,9 @@
 const ONE_SECOND = 1000,
     FIVE_SECOND = 5000
 
-var wins = [0,],
-    losses = [0,],
-    timesUp = [0,],
+var wins = 0,
+    losses = 0,
+    timesUp =0 ,
     timerCountdown = 5,
     countdownRunner,
     resetTime
@@ -64,7 +64,51 @@ var currentQuestion = questions[0];
     $("#startingTimerText").hide();
     $("#ending").hide();
     updateTimeRemaining(timerCountdown);
-    initializeEventHandlers();
+    // initializeEventHandlers();
+
+    $("#start").click(function(){
+        loadQuestion(currentQuestion);
+        $("#startingTimerText").show();
+        $("#welcomeWindow").hide();
+        $("#questionHolder").show();
+        countdownRunner = setInterval(countdown, ONE_SECOND);
+    });
+    
+    $(".answerButton").click(function(){
+        clearInterval(countdownRunner);
+        console.log(this.innerText);
+        $(".answerButton").attr("disabled", true);
+        var index = $(".answerButton").index(this);
+        console.log("index of button " + index);
+        displayCorrectAnswer(currentQuestion);
+        console.log("current question correct answer " + currentQuestion);
+        
+        if (index === currentQuestion[2]){
+            $("#correctAnswerChosen").fadeIn();
+            $(this).addClass("correctAnswerChosen");
+            wins++;
+            console.log("wins " + wins);
+            setTimeout(delayNewQuestion, FIVE_SECOND);
+        }
+        else {
+            $("#wrongAnswerChosen").fadeIn();
+            $(this).addClass("wronganswer");
+            $("#startingTimerText").hide();
+            losses++
+            console.log("losses" + losses);
+            setTimeout(delayNewQuestion, FIVE_SECOND);
+        }
+        
+    });
+
+    $("#playAgain").click(function(){
+        // console.log("You clicked me");
+        currentQuestion = questions[0];
+        $("#startingTimerText").show();
+        $("#welcomeWindow").hide();
+        $("#questionHolder").show();
+        countdownRunner = setInterval(countdown, ONE_SECOND);
+    });
 });
 
 //this funcxtion will pass whatever is argument is used when the updateTimeRemaing is called (could be anything)
@@ -94,49 +138,9 @@ function resetTimer(resetTime){
             //screen changes to next question after 5 seconds
 
 //when start button is clicked, questionOne will load with a timer that will start counting down at 30 seconds
-function initializeEventHandlers(){
-    $("#start").click(function(){
-        loadQuestion(currentQuestion);
-        $("#startingTimerText").show();
-        $("#welcomeWindow").hide();
-        $("#questionHolder").show();
-        countdownRunner = setInterval(countdown, ONE_SECOND);
-    });
-    
-    $(".answerButton").click(function(){
-        clearInterval(countdownRunner);
-        console.log(this.innerText);
-        $(".answerButton").attr("disabled", true);
-        var index = $(".answerButton").index(this);
-        console.log("index of button " + index);
-        displayCorrectAnswer(currentQuestion);
-        console.log("current question correct answer " + currentQuestion);
-        
-        if (index === currentQuestion[2]){
-            $("#correctAnswerChosen").fadeIn();
-            $(this).addClass("correctAnswerChosen");
-            wins++;
-            setTimeout(delayNewQuestion, FIVE_SECOND);
-        }
-        else {
-            $("#wrongAnswerChosen").fadeIn();
-            $(this).addClass("wronganswer");
-            $("#startingTimerText").hide();
-            losses.push(losses++)
-            setTimeout(delayNewQuestion, FIVE_SECOND);
-        }
-        
-    });
-
-    $("#playAgain").click(function(){
-        // console.log("You clicked me");
-        currentQuestion = questions[0];
-        $("#startingTimerText").show();
-        $("#welcomeWindow").hide();
-        $("#questionHolder").show();
-        countdownRunner = setInterval(countdown, ONE_SECOND);
-    });
-}
+// function initializeEventHandlers(){
+   
+// }
 
 function delayNewQuestion(){
     advanceToNextQuestion(),FIVE_SECOND;
@@ -160,6 +164,7 @@ function advanceToNextQuestion(){
         $(".wronganswer").removeClass("wronganswer");
         $("#startingTimerText").show();
         $("#timesUpTimer").hide();
+        timerCountdown = 5;
     }
     else{;
         $("#questionHolder").hide();
@@ -169,6 +174,8 @@ function advanceToNextQuestion(){
         $("#timesUpTimer").hide();
         $("#ending").show();
         $("#replay").replay;
+        timerCountdown = 5;
+        $("#wins").text(wins);
     }
 }
 
@@ -186,12 +193,13 @@ function countdown() {
 
     if(timerCountdown === 0){
         clearInterval(countdownRunner);
+        timerCountdown = 5;
         $("#startingText").hide();
         $("#timesUpTimer").show();
         $(".answerButton").attr("disabled", true);
         displayCorrectAnswer(currentQuestion);
-        $("#timesup").innerHTML = [timesUp]+1;
-        console.log(timesUp);
+        timesUp++
+        console.log("timesup: " + timesUp);
         setTimeout(delayNewQuestion, FIVE_SECOND);
     } else {
         timerCountdown--
