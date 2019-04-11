@@ -6,13 +6,15 @@
 
 
 //set variables
-const ONE_SECOND = 1000;
-const FIVE_SECOND = 5000;
-var wins = 0;
-var losses = 0;
-var timesUp = 0;
-var timerCountdown = 90;
-var countdownRunner;
+const ONE_SECOND = 1000,
+    FIVE_SECOND = 5000
+
+var wins = 0,
+    losses = 0,
+    timesUp = 0,
+    timerCountdown = 5,
+    countdownRunner,
+    resetTime
 
 
 //most common way to get to work in Seattle is biking
@@ -49,17 +51,17 @@ const questions = [questionOne, questionTwo, questionThree, questionFour, questi
 
 var currentQuestion = questions[0];
 
+
 //need a welcome page with instructions and a start button that will be clickable 
 //when start is clicked, instructions and start button will hide
 //that will start the timer and show the first question
  $( document ).ready(function(){
-    // var contents = $("#startingText"); (commenting out because used just for testing purpsoses for the alert below)
-    //alert( contents.html());
     //before the page renders need to hide my div and set the timer
     $("#timesUpTimer").hide();
     $("#questionHolder").hide();
     $("#correctAnswerChosen").hide();
     $("#wrongAnswerChosen").hide();
+    $("#startingTimerText").hide();
     $("#ending").hide();
     updateTimeRemaining(timerCountdown);
     initializeEventHandlers();
@@ -68,6 +70,10 @@ var currentQuestion = questions[0];
 //this funcxtion will pass whatever is argument is used when the updateTimeRemaing is called (could be anything)
 function updateTimeRemaining(newTime){
     $("#timeLeft").text(newTime);
+}
+
+function resetTimer(resetTime){
+    resetTime = timerCountdown
 }
 
 //when the user clicks the start button things to happen:
@@ -91,9 +97,9 @@ function updateTimeRemaining(newTime){
 function initializeEventHandlers(){
     $("#start").click(function(){
         loadQuestion(currentQuestion);
-        $("#startingText").show();
+        $("#startingTimerText").show();
         $("#welcomeWindow").hide();
-        $("#questionHolder").show(); //questionHolder is my template
+        $("#questionHolder").show();
         countdownRunner = setInterval(countdown, ONE_SECOND);
     });
 
@@ -117,7 +123,7 @@ function initializeEventHandlers(){
         else {
             $("#wrongAnswerChosen").fadeIn();
             $(this).addClass("wronganswer");
-            $("#startingText").hide();
+            $("#startingTimerText").hide();
             losses++;
             console.log("losses " + losses);
             losses.innerText = losses;
@@ -147,6 +153,15 @@ function advanceToNextQuestion(){
         $("#wrongAnswerChosen").hide();
         $(".answerButton").removeClass("correctanswer");
         $(".wronganswer").removeClass("wronganswer");
+        $("#startingTimerText").show();
+        ;
+    }
+    else{;
+        $("#questionHolder").hide();
+        $("#startingTimerText").hide();
+        $("#correctAnswerChosen").hide();
+        $("#wrongAnswerChosen").hide();
+        $("#ending").show();
     }
 }
 
@@ -154,7 +169,7 @@ function advanceToNextQuestion(){
 //show right answer
 //need timer that will start at 30 seconds and countdown to zero
 //when time is up, buttons will be disabled
-//timer is restarted at 30 seconds on screen flip
+//timer is reset at 30 seconds on screen flip
 function countdown() {
     console.log(timerCountdown);
     updateTimeRemaining(timerCountdown);
@@ -191,6 +206,8 @@ function loadQuestion(questionArray){
         answerButtons[i].innerText = answers[i];
     }
 }
+
+
 
 
     //pseudo code that hasn't been used - or has been repeated above, saving til end
