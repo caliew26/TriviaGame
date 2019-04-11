@@ -14,6 +14,8 @@ var countdownRunner;
 var resetTimer; 
 var resetHold= 5;
 var wait;
+var delayButtonAlert;
+var timerID;
 
 
 //most common way to get to work in Seattle is biking
@@ -110,6 +112,8 @@ function initializeEventHandlers(){
         if (index === currentQuestion[2]){
             $("#correctAnswerChosen").fadeIn();
             resetTimer();
+            let timerID = setTimeout (timerID, FIVE_SECOND);
+            console.log(timerID);
         }
         else {
             $("#wrongAnswerChosen").fadeIn();
@@ -183,6 +187,10 @@ function loadQuestion(questionArray){
     for (let i = 0; i < answerButtons.length; i++){
         answerButtons[i].innerText = answers[i];
     }
+}
+
+function timerID(){
+    console.log("HI");
 }
 
 // function resetTimerHold(){

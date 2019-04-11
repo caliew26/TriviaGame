@@ -7,10 +7,13 @@
 
 //set variables
 const ONE_SECOND = 1000;
-var wins = 0
-var losses = 0
+const FIVE_SECOND = 5000;
+var wins = 0;
+var losses = 0;
+var timesUp = 0;
 var timerCountdown = 5;
 var countdownRunner;
+
 
 //most common way to get to work in Seattle is biking
 const questionOne = [
@@ -21,25 +24,25 @@ const questionOne = [
 //Starbucks founded in Seattle in 1971
 const questionTwo = [
     "What world wide company was founded in Seattle in 1971?", 
-    ["Nabisco", "Boeing", "Google", "Starbucks"], 4
+    ["Nabisco", "Boeing", "Google", "Starbucks"], 3
 ]
 
 //Space Needle was built in 1962; most iconic landmark
 const questionThree = [
     "In 1962, for the worlds fair, what monument was built?",
-    ["Mt. St. Helens", "Safeco Field", "Space Needle", "Kingdome"], 3
+    ["Mt. St. Helens", "Safeco Field", "Space Needle", "Kingdome"], 2
 ]
 
 //Famous bands from Seattle include Soundgarden, Pearl Jam, Heart, Foo Fighters
 const questionFour = [
     "Which of the following bands is NOT from Seattle?", 
-    ["Chicago", "Soundgarden", "Heart", "Pearl Jam"], 1
+    ["Chicago", "Soundgarden", "Heart", "Pearl Jam"], 0
 ]
 
 //does not have NBA team but has NFL, MLS, MLB
 const questionFive = [
     'Seattle has all of the following professional sports but which?',
-    ["NBA", "NFL", "MLS", "MLB"], 1
+    ["NBA", "NFL", "MLS", "MLB"], 0
 ]
 
 const questions = [questionOne, questionTwo, questionThree, questionFour, questionFive];
@@ -101,28 +104,49 @@ function initializeEventHandlers(){
         var index = $(".answerButton").index(this);
         console.log("index of button " + index);
         displayCorrectAnswer(currentQuestion);
+        console.log("current question correct answer " + currentQuestion);
         
         if (index === currentQuestion[2]){
             $("#correctAnswerChosen").fadeIn();
+            $(this).addClass("correctAnswerChosen");
+            wins++;
+            console.log("wins " + wins);
+            wins.innerText = wins;
+            setTimeout(delayNewQuestion, FIVE_SECOND);
         }
         else {
             $("#wrongAnswerChosen").fadeIn();
             $(this).addClass("wronganswer");
             $("#startingText").hide();
+            losses++;
+            console.log("losses " + losses);
+            losses.innerText = losses;
+            setTimeout(delayNewQuestion, FIVE_SECOND);
         }
-        
-        advanceToNextQuestion();
         
     });
 }
+
+function delayNewQuestion(){
+    advanceToNextQuestion(),FIVE_SECOND;
+}
+//could you use on correctAnswerChosen (onclick) then do setTimeout?
+//setTimeout
+//use on wronganswer (onclick) then do setTimeout
+//but then what about timeout? how would that onclick?
 
 function advanceToNextQuestion(){
     var nextIndex = questions.indexOf(currentQuestion)+1;
     if(nextIndex < questions.length){
         currentQuestion = questions[nextIndex];
         loadQuestion(currentQuestion);
-    } else {
-        alert("Game Over");
+        updateTimeRemaining(timerCountdown);
+        countdownRunner = setInterval(countdown, ONE_SECOND); //this gives me the actual countdown
+        $(".answerButton").attr("disabled", false);
+        $("#correctAnswerChosen").hide();
+        $("#wrongAnswerChosen").hide();
+        $(".answerButton").removeClass("correctanswer");
+        $(".wronganswer").removeClass("wronganswer");
     }
 }
 
@@ -141,11 +165,14 @@ function countdown() {
         $("#timesUpTimer").show();
         $(".answerButton").attr("disabled", true);
         displayCorrectAnswer(currentQuestion);
+        timesUp++;
+        console.log("timesup " + timesUp);
+        timesUp.innerText = timesup;
+        setTimeout(delayNewQuestion, FIVE_SECOND);
     } else {
         timerCountdown--
     }
 }
-
 
 //if wrong - show banner saying "wrong", show right answer, 
 //correct answer, banner saying "right", button will be made different so user knows the correct answer
