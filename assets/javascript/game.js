@@ -9,9 +9,9 @@
 const ONE_SECOND = 1000,
     FIVE_SECOND = 5000
 
-var wins = 0,
-    losses = 0,
-    timesUp = 0,
+var wins = [0,],
+    losses = [0,],
+    timesUp = [0,],
     timerCountdown = 5,
     countdownRunner,
     resetTime
@@ -31,7 +31,7 @@ const questionTwo = [
 
 //Space Needle was built in 1962; most iconic landmark
 const questionThree = [
-    "In 1962, for the worlds fair, what monument was built?",
+    "In 1962, for the worlds fair, what landmark was built?",
     ["Mt. St. Helens", "Safeco Field", "Space Needle", "Kingdome"], 2
 ]
 
@@ -102,7 +102,7 @@ function initializeEventHandlers(){
         $("#questionHolder").show();
         countdownRunner = setInterval(countdown, ONE_SECOND);
     });
-
+    
     $(".answerButton").click(function(){
         clearInterval(countdownRunner);
         console.log(this.innerText);
@@ -116,20 +116,25 @@ function initializeEventHandlers(){
             $("#correctAnswerChosen").fadeIn();
             $(this).addClass("correctAnswerChosen");
             wins++;
-            console.log("wins " + wins);
-            wins.innerText = wins;
             setTimeout(delayNewQuestion, FIVE_SECOND);
         }
         else {
             $("#wrongAnswerChosen").fadeIn();
             $(this).addClass("wronganswer");
             $("#startingTimerText").hide();
-            losses++;
-            console.log("losses " + losses);
-            losses.innerText = losses;
+            losses.push(losses++)
             setTimeout(delayNewQuestion, FIVE_SECOND);
         }
         
+    });
+
+    $("#playAgain").click(function(){
+        // console.log("You clicked me");
+        currentQuestion = questions[0];
+        $("#startingTimerText").show();
+        $("#welcomeWindow").hide();
+        $("#questionHolder").show();
+        countdownRunner = setInterval(countdown, ONE_SECOND);
     });
 }
 
@@ -154,17 +159,22 @@ function advanceToNextQuestion(){
         $(".answerButton").removeClass("correctanswer");
         $(".wronganswer").removeClass("wronganswer");
         $("#startingTimerText").show();
-        ;
+        $("#timesUpTimer").hide();
     }
     else{;
         $("#questionHolder").hide();
         $("#startingTimerText").hide();
         $("#correctAnswerChosen").hide();
         $("#wrongAnswerChosen").hide();
+        $("#timesUpTimer").hide();
         $("#ending").show();
+        $("#replay").replay;
     }
 }
 
+function replay(){
+    location.reload();
+}
 //if time runs out - show banner saying "your time is up"
 //show right answer
 //need timer that will start at 30 seconds and countdown to zero
@@ -180,9 +190,8 @@ function countdown() {
         $("#timesUpTimer").show();
         $(".answerButton").attr("disabled", true);
         displayCorrectAnswer(currentQuestion);
-        timesUp++;
-        console.log("timesup " + timesUp);
-        timesUp.innerText = timesup;
+        $("#timesup").innerHTML = [timesUp]+1;
+        console.log(timesUp);
         setTimeout(delayNewQuestion, FIVE_SECOND);
     } else {
         timerCountdown--
@@ -207,7 +216,10 @@ function loadQuestion(questionArray){
     }
 }
 
-
+function endPage(){
+    wins
+}
+  
 
 
     //pseudo code that hasn't been used - or has been repeated above, saving til end
