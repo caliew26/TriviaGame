@@ -11,7 +11,7 @@ const FIVE_SECOND = 5000;
 var wins = 0;
 var losses = 0;
 var timesUp = 0;
-var timerCountdown = 5;
+var timerCountdown = 30;
 var countdownRunner;
 
 
