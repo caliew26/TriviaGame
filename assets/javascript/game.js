@@ -86,6 +86,7 @@ var currentQuestion = questions[0];
         if (index === currentQuestion[2]){
             $("#correctAnswerChosen").fadeIn();
             $(this).addClass("correctAnswerChosen");
+            updateTimeRemaining(timerCountdown)
             wins++;
             console.log("wins " + wins);
             setTimeout(delayNewQuestion, FIVE_SECOND);
@@ -93,21 +94,28 @@ var currentQuestion = questions[0];
         else {
             $("#wrongAnswerChosen").fadeIn();
             $(this).addClass("wronganswer");
+            updateTimeRemaining(timerCountdown)
             $("#startingTimerText").hide();
             losses++
             console.log("losses" + losses);
             setTimeout(delayNewQuestion, FIVE_SECOND);
+            
         }
         
     });
 
-    $("#playAgain").click(function(){
-        // console.log("You clicked me");
-        currentQuestion = questions[0];
+    $("#replay").click(function(){
         $("#startingTimerText").show();
+        updateTimeRemaining(timerCountdown);
         $("#welcomeWindow").hide();
         $("#questionHolder").show();
+        loadQuestion(questions);
+        $(".answerButton").attr("disabled", false);
+        $("#ending").hide();
         countdownRunner = setInterval(countdown, ONE_SECOND);
+        $(".answerButton").removeClass("correctanswer");
+        $(".wronganswer").removeClass("wronganswer");
+
     });
 });
 
@@ -175,7 +183,9 @@ function advanceToNextQuestion(){
         $("#ending").show();
         $("#replay").replay;
         timerCountdown = 5;
-        $("#wins").text(wins);
+        $("#wins").text(" " + wins);
+        $("#losses").text(" " + losses);
+        $("#timesup").text(" " + timesUp);
     }
 }
 
@@ -224,9 +234,6 @@ function loadQuestion(questionArray){
     }
 }
 
-function endPage(){
-    wins
-}
   
 
 
