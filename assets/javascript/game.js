@@ -7,12 +7,13 @@
 
 //set variables
 const ONE_SECOND = 1000,
-    FIVE_SECOND = 5000
+      FIVE_SECOND = 5000,
+      RESET_TIMER_COUNTDOWN = 5
 
 var wins = 0,
     losses = 0,
-    timesUp =0 ,
-    timerCountdown = 5,
+    timesUp = 0 ,
+    timerCountdown = RESET_TIMER_COUNTDOWN,
     countdownRunner,
     resetTime
 
@@ -78,41 +79,35 @@ var currentQuestion = questions[0];
         clearInterval(countdownRunner);
         console.log(this.innerText);
         $(".answerButton").attr("disabled", true);
-        var index = $(".answerButton").index(this);
-        console.log("index of button " + index);
+        var indexClickedButton = $(".answerButton").index(this);
+        console.log("index of button " + indexClickedButton);
         displayCorrectAnswer(currentQuestion);
         console.log("current question correct answer " + currentQuestion);
         
-        if (index === currentQuestion[2]){
+        var answeredCorrectly = indexClickedButton === currentQuestion[2]
+        if (answeredCorrectly){
             $("#correctAnswerChosen").fadeIn();
             $(this).addClass("correctAnswerChosen");
-            updateTimeRemaining(timerCountdown)
             wins++;
             console.log("wins " + wins);
-            setTimeout(delayNewQuestion, FIVE_SECOND);
-        }
-        else {
+
+        } else {
             $("#wrongAnswerChosen").fadeIn();
             $(this).addClass("wronganswer");
-            updateTimeRemaining(timerCountdown)
-            $("#startingTimerText").hide();
             losses++
             console.log("losses" + losses);
-            setTimeout(delayNewQuestion, FIVE_SECOND);
-            
         }
-        
+        setTimeout(advanceToNextQuestion, FIVE_SECOND);
     });
 
     $("#replay").click(function(){
+        currentQuestion = questions[0];
+        loadQuestion(currentQuestion);
+        resetTimer();
         $("#startingTimerText").show();
-        updateTimeRemaining(timerCountdown);
-        $("#welcomeWindow").hide();
         $("#questionHolder").show();
-        loadQuestion(questions);
         $(".answerButton").attr("disabled", false);
         $("#ending").hide();
-        countdownRunner = setInterval(countdown, ONE_SECOND);
         $(".answerButton").removeClass("correctanswer");
         $(".wronganswer").removeClass("wronganswer");
 
@@ -124,8 +119,10 @@ function updateTimeRemaining(newTime){
     $("#timeLeft").text(newTime);
 }
 
-function resetTimer(resetTime){
-    resetTime = timerCountdown
+function resetTimer(){
+    timerCountdown = RESET_TIMER_COUNTDOWN;
+    updateTimeRemaining(timerCountdown);
+    countdownRunner = setInterval(countdown, ONE_SECOND);
 }
 
 //when the user clicks the start button things to happen:
@@ -148,11 +145,6 @@ function resetTimer(resetTime){
 //when start button is clicked, questionOne will load with a timer that will start counting down at 30 seconds
 // function initializeEventHandlers(){
    
-// }
-
-function delayNewQuestion(){
-    advanceToNextQuestion(),FIVE_SECOND;
-}
 //could you use on correctAnswerChosen (onclick) then do setTimeout?
 //setTimeout
 //use on wronganswer (onclick) then do setTimeout
@@ -163,8 +155,7 @@ function advanceToNextQuestion(){
     if(nextIndex < questions.length){
         currentQuestion = questions[nextIndex];
         loadQuestion(currentQuestion);
-        updateTimeRemaining(timerCountdown);
-        countdownRunner = setInterval(countdown, ONE_SECOND); //this gives me the actual countdown
+        resetTimer();
         $(".answerButton").attr("disabled", false);
         $("#correctAnswerChosen").hide();
         $("#wrongAnswerChosen").hide();
@@ -172,9 +163,8 @@ function advanceToNextQuestion(){
         $(".wronganswer").removeClass("wronganswer");
         $("#startingTimerText").show();
         $("#timesUpTimer").hide();
-        timerCountdown = 5;
-    }
-    else{;
+        
+    } else{
         $("#questionHolder").hide();
         $("#startingTimerText").hide();
         $("#correctAnswerChosen").hide();
@@ -182,7 +172,7 @@ function advanceToNextQuestion(){
         $("#timesUpTimer").hide();
         $("#ending").show();
         $("#replay").replay;
-        timerCountdown = 5;
+        timerCountdown = RESET_TIMER_COUNTDOWN;
         $("#wins").text(" " + wins);
         $("#losses").text(" " + losses);
         $("#timesup").text(" " + timesUp);
@@ -203,14 +193,14 @@ function countdown() {
 
     if(timerCountdown === 0){
         clearInterval(countdownRunner);
-        timerCountdown = 5;
+        timerCountdown = RESET_TIMER_COUNTDOWN;
         $("#startingText").hide();
         $("#timesUpTimer").show();
         $(".answerButton").attr("disabled", true);
         displayCorrectAnswer(currentQuestion);
         timesUp++
         console.log("timesup: " + timesUp);
-        setTimeout(delayNewQuestion, FIVE_SECOND);
+        setTimeout(advanceToNextQuestion, FIVE_SECOND);
     } else {
         timerCountdown--
     }

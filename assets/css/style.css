@@ -4,28 +4,35 @@
 body {
     background: whitesmoke;
     text-align: center;
-    position: absolute;
+    /* position: absolute; */
+    background-image: url("../images/MtRainierbyArlynnLC.jpeg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+
+.main {
+    width: 90%;
+    background-color: rgba(69, 7, 127, 0.566);
+    color: whitesmoke;
+    padding: 2%;
+    margin: 3%;
+    border-radius: 20px;
 }
 
 header {
     text-align: center;
-    font-size: 75px;
+    font-size: 8em;
     width: 100% auto;
-}
-
-img {
-    position: relative;
-    opacity: 0.4;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    color: whitesmoke;
+    text-shadow:
+		-2px -2px 0 #000,
+	    2px -2px 0 #000,
+		-2px 2px 0 #000,
+		2px 2px 0 #000;
 }
 
 #welcomeWindow {
-    position: relative;
     z-index: 0;
     border: 2px solid black;
     margin: 20px;
@@ -49,15 +56,11 @@ li {
 
 #questionHolder {
     margin: 20px;
-    font-size: 18px;
+    border: 2px solid black;
 }
 
 #wrongAnswerChosen {
     color: red;
-}
-
-#question {
-    font-size: 20px;
 }
 
 .wronganswer {
@@ -65,13 +68,13 @@ li {
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 5em;
 }
 
-h2 {
-    font-size: 20px;
+h2, p {
+    font-size: 1.5em;
 }
 
 #ending {
-    background-color: whitesmoke;
+    border: 2px solid black;
 }
