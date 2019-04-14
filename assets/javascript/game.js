@@ -8,7 +8,7 @@
 //set variables
 const ONE_SECOND = 1000,
       FIVE_SECOND = 5000,
-      RESET_TIMER_COUNTDOWN = 5
+      RESET_TIMER_COUNTDOWN = 30
 
 var wins = 0,
     losses = 0,
