@@ -227,7 +227,7 @@ function loadQuestion(questionArray){
   
 
 
-    //pseudo code that hasn't been used - or has been repeated above, saving til end
+//pseudo code that hasn't been used - or has been repeated above, saving til end
     //html - title screen
     //instructions
     //start button
