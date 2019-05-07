@@ -50,12 +50,12 @@ const questionFive = [
 
 const questionSix = [
     "What is the nickname of Seattle?",
-    ["Emerald City", "Oz", "Natural City", "Gates-Land"], 1
+    ["Emerald City", "Oz", "Natural City", "Gates-Land"], 0
 ]
 
 const questionSeven = [
     "What is known as the Galloping Gertie?", 
-    ["A Horse", "The Narrows Bridge", "Race Car", "Boxer"], 2
+    ["A Horse", "The Narrows Bridge", "Race Car", "Boxer"], 1
 ]
 
 const questions = [questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix, questionSeven];
