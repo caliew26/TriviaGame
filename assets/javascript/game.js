@@ -48,7 +48,17 @@ const questionFive = [
     ["NBA", "NFL", "MLS", "MLB"], 0
 ]
 
-const questions = [questionOne, questionTwo, questionThree, questionFour, questionFive];
+const questionSix = [
+    "What is the nickname of Seattle?",
+    ["Emerald City", "Oz", "Natural City", "Gates-Land"], 1
+]
+
+const questionSeven = [
+    "What is known as the Galloping Gertie?", 
+    ["A Horse", "The Narrows Bridge", "Race Car", "Boxer"], 2
+]
+
+const questions = [questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix, questionSeven];
 
 var currentQuestion = questions[0];
 
