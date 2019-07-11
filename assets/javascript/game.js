@@ -58,7 +58,22 @@ const questionSeven = [
     ["A Horse", "The Narrows Bridge", "Race Car", "Boxer"], 1
 ]
 
-const questions = [questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix, questionSeven];
+const questionEight = [
+    "What year did Mt.St. Helens errupt?", 
+    ["1990", "1900", "1980", "1952"], 2
+]
+
+const questionNine = [
+    "What is the state bird?", 
+    ["Oriole", "Humming Bird", "Cardinal", "Gold Finch"], 3
+]
+
+const questionTen = [
+    "What year did the Seahawks win the superbowl?", 
+    ["2014", "2000", "1976", "2020"], 0
+]
+
+const questions = [questionOne, questionTwo, questionThree, questionFour, questionFive, questionSix,questionSeven,questionEight,questionNine,questionTen];
 
 var currentQuestion = questions[0];
 
